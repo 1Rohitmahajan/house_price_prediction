@@ -34,24 +34,26 @@ Copy code
 cd house_price_prediction
 Create and Activate a Virtual Environment:
 
-bash
-Copy code
+
 python -m venv venv
+
 # On Windows use:
 venv\Scripts\activate
+
 # On Linux/Mac use:
 source venv/bin/activate
-Install Dependencies:
 
-bash
-Copy code
+Install Dependencies:
 pip install -r requirements.txt
+
 Run the Application:
 
-bash
-Copy code
+
 python app.py
+
 The application will be accessible at http://127.0.0.1:5000/ by default.
+
+
 
 Pages and Functionality
 1. Login Page
@@ -78,24 +80,7 @@ Logout: End the user session and clear session data.
 Contributing
 Contributions are welcome! If you would like to contribute to this project, please follow these steps:
 
-Fork the Repository
 
-Create a New Branch:
-
-bash
-Copy code
-git checkout -b feature-branch
-Make Your Changes and Commit Them:
-
-bash
-Copy code
-git commit -am 'Add new feature'
-Push to the Branch:
-
-bash
-Copy code
-git push origin feature-branch
-Create a Pull Request
 
 License
 This project is licensed under the MIT License. See the LICENSE file for more details.
