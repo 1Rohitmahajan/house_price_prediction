@@ -25,30 +25,15 @@ To set up and run the House Price Prediction application locally, follow these s
 
 1. **Clone the Repository:**
 
-   ```bash
-   git clone https://github.com/1Rohitmahajan/house_price_prediction.git
-Navigate to the Project Directory:
+git clone https://github.com/1Rohitmahajan/house_price_prediction.git
 
-bash
-Copy code
 cd house_price_prediction
-Create and Activate a Virtual Environment:
-
-
 python -m venv venv
-
-# On Windows use:
+# for window
 venv\Scripts\activate
-
-# On Linux/Mac use:
 source venv/bin/activate
-
-Install Dependencies:
 pip install -r requirements.txt
-
 Run the Application:
-
-
 python app.py
 
 The application will be accessible at http://127.0.0.1:5000/ by default.
