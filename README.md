@@ -29,7 +29,7 @@ git clone https://github.com/1Rohitmahajan/house_price_prediction.git
 
 cd house_price_prediction
 python -m venv venv
-# for window
+#for window 
 venv\Scripts\activate
 source venv/bin/activate
 pip install -r requirements.txt
