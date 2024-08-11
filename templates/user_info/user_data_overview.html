@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}User Data Overview{% endblock %}
+{% block page_title %}User Data Overview{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4 mb-3">User Data Overview</h2>
+    <p class="lead">Here is an overview of user data and interactions.</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Last Login</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>johndoe@example.com</td>
+                <td>2024-08-10</td>
+                <td><a href="#" class="btn btn-info btn-sm">View</a></td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Ready Construction{% endblock %}
+{% block page_title %}Ready Construction{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4 mb-3">Ready Construction</h2>
+    <p class="lead">Browse ready-to-move-in properties available for purchase.</p>
+    <div class="mt-5">
+        <h4 class="text-center mb-4">Available Flats</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="static/img/29.jpg" class="img-fluid" alt="2RK Flat">
+                <h5>2RK (Residential Kitchen)</h5>
+                <p>Size: 500 sq. ft.</p>
+                <p>Price: ₹35 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/28.jpg" class="img-fluid" alt="4RK Flat">
+                <h5>4RK (Residential Kitchen)</h5>
+                <p>Size: 1200 sq. ft.</p>
+                <p>Price: ₹90 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/27.jpg" class="img-fluid" alt="2BHK Flat">
+                <h5>2BHK (2 Bedroom, Hall, Kitchen)</h5>
+                <p>Size: 900 sq. ft.</p>
+                <p>Price: ₹65 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/26.jpg" class="img-fluid" alt="3BHK Flat">
+                <h5>3BHK (3 Bedroom, Hall, Kitchen)</h5>
+                <p>Size: 1300 sq. ft.</p>
+                <p>Price: ₹95 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/kichen.jpg" class="img-fluid" alt="1BHK Flat">
+                <h5>1BHK (1 Bedroom, Hall, Kitchen)</h5>
+                <p>Size: 600 sq. ft.</p>
+                <p>Price: ₹40 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/19.jpg" class="img-fluid" alt="Square Footage">
+                <h5>Square Footage Based</h5>
+                <p>Size: 450-1500 sq. ft.</p>
+                <p>Price: ₹30 Lakhs - ₹1.2 Crores</p>
+            </div>
+            <!-- Add more flat types here -->
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Responsive Container */
+    .container {
+        max-width: 800px;
+        margin: auto;
+        padding: 0 15px;
+    }
+
+    /* Form Container Styling */
+    .form-container {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Image Styling */
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    /* Flat Information Styling */
+    .row .col-md-4 {
+        margin-bottom: 20px;
+    }
+    
+    h5 {
+        margin-top: 10px;
+        color: #495057;
+    }
+    
+    p {
+        margin: 0;
+        color: #6c757d;
+    }
+</style></div>
+{% endblock %}

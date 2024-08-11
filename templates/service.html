@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Our Services{% endblock %}
+{% block page_title %}Our Services{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4 mb-3">Our Services</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ url_for('static', filename='img/27.jpg') }}" class="card-img-top" alt="Service 1">
+                <div class="card-body">
+                    <h5 class="card-title">Service 1</h5>
+                    <p class="card-text">Detailed description of Service 1. Highlight key features and benefits.</p>
+                    <a href="{{ url_for('ready_construction', service_id=1) }}" class="btn btn-dark">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ url_for('static', filename='img/28.jpg') }}" class="card-img-top" alt="Service 2">
+                <div class="card-body">
+                    <h5 class="card-title">Service 2</h5>
+                    <p class="card-text">Detailed description of Service 2. Highlight key features and benefits.</p>
+                    <a href="{{ url_for('new_purchasing', service_id=2) }}" class="btn btn-dark">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ url_for('static', filename='img/29.jpg') }}" class="card-img-top" alt="Service 3">
+                <div class="card-body">
+                    <h5 class="card-title">Service 3</h5>
+                    <p class="card-text">Detailed description of Service 3. Highlight key features and benefits.</p>
+                    <a href="{{ url_for('new_construction', service_id=3) }}" class="btn btn-dark">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+python -m venv venv
+.\venv\Scripts\activate
+pip install Flask scikit-learn pandas numpy
+
+
+pip intall flask
+
+
+pip install Flask scikit-learn pandas numpy
+
+from sklearn.datasets import load_boston

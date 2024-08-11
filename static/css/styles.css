@@ -1,0 +1,142 @@
+/* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* General Styles */
+
+/* Card Image Styling */
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Card and Button Styles */
+.card {
+    border: none;
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+}
+
+.card-body {
+    background-color: #222;
+}
+
+.card-title {
+    color: #fff;
+}
+
+.card-text {
+    color: #ddd;
+}
+
+.btn-dark {
+    background-color: #000;
+    color: #fff;
+    border: none;
+}
+
+.btn-dark:hover {
+    background-color: #333;
+    color: #fff;
+}
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #49909b 0%, #acc013 100%);
+}
+
+.top-bar {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.sidebar a {
+    color: #ffffff;
+}
+
+.sidebar a:hover {
+    background-color: #495057;
+}
+
+.search-bar {
+    background-color: #1c1c1c;
+    color: #ffffff;
+}
+
+.btn-outline-danger:hover {
+    background-color: #e53935;
+}
+
+footer {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .top-bar {
+        flex-direction: column;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .top-bar {
+        padding: 10px;
+    }
+    
+    .btn-outline-success {
+        width: 100%;
+    }
+}
+
+
+.hamburger-menu {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px; /* Hide the sidebar off-screen */
+        width: 250px;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}

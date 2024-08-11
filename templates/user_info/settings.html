@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Settings{% endblock %}
+{% block page_title %}Settings{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4 mb-3">Settings</h2>
+    <form>
+        <div class="form-group">
+            <label for="theme">Theme</label>
+            <select class="form-control" id="theme">
+                <option>Light</option>
+                <option>Dark</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="notifications">Notifications</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                <label class="form-check-label" for="emailNotifications">Email Notifications</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="smsNotifications">
+                <label class="form-check-label" for="smsNotifications">SMS Notifications</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary-custom">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

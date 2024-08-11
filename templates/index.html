@@ -1,0 +1,525 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h4 class="text-center mb-4 bg-dark">House Price Prediction</h4>
+        {% if prediction_text %}
+        <div style="font-size:34px" class="alert alert-info mt-4 p-4 ">
+            {{ prediction_text }}
+        </div>
+    {% endif %}
+    {% if temp_file_content %}
+        <pre class="mt-4">{{ temp_file_content }}</pre>
+    {% endif %}
+        <form method="POST" action="/predict" class="form-container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="area" class="form-label">Area (sq. ft.):</label>
+                        <input type="number" step="any" name="area" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="bedrooms" class="form-label">Number of Bedrooms:</label>
+                        <input type="number" step="any" name="bedrooms" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="bathrooms" class="form-label">Number of Bathrooms:</label>
+                        <input type="number" step="any" name="bathrooms" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="stories" class="form-label">Number of Stories:</label>
+                        <input type="number" step="any" name="stories" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="mainroad" class="form-label">Main Road:</label>
+                        <select name="mainroad" class="form-control" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="guestroom" class="form-label">Guest Room:</label>
+                        <select name="guestroom" class="form-control" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="basement" class="form-label">Basement:</label>
+                        <select name="basement" class="form-control" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="hotwaterheating" class="form-label">Hot Water Heating:</label>
+                        <select name="hotwaterheating" class="form-control" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="airconditioning" class="form-label">Air Conditioning:</label>
+                        <select name="airconditioning" class="form-control" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="parking" class="form-label">Parking Spaces:</label>
+                        <input type="number" step="any" name="parking" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="prefarea" class="form-label">Preferred Area:</label>
+                        <select name="prefarea" class="form-control" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="furnishingstatus" class="form-label">Furnishing Status:</label>
+                        <select name="furnishingstatus" class="form-control" required>
+                            <option value="furnished">Furnished</option>
+                            <option value="semi-furnished">Semi-Furnished</option>
+                            <option value="unfurnished">Unfurnished</option>
+                        </select>
+                    </div>
+                </div>
+                
+
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Predict</button>
+        </form>
+        {% if prediction_text %}
+            <div class="alert alert-info mt-4">
+                {{ prediction_text }}
+            </div>
+        {% endif %}
+        {% if temp_file_content %}
+            <pre class="mt-4">{{ temp_file_content }}</pre>
+        {% endif %}
+    </div>
+    <div class="container">
+        <h2 class="mt-4 mb-3">Our Services</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img src="{{ url_for('static', filename='img/27.jpg') }}" class="card-img-top" alt="Service 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Service 1</h5>
+                        <p class="card-text">Detailed description of Service 1. Highlight key features and benefits.</p>
+                        <a href="{{ url_for('ready_construction', service_id=1) }}" class="btn btn-dark">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img src="{{ url_for('static', filename='img/28.jpg') }}" class="card-img-top" alt="Service 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Service 2</h5>
+                        <p class="card-text">Detailed description of Service 2. Highlight key features and benefits.</p>
+                        <a href="{{ url_for('new_purchasing', service_id=2) }}" class="btn btn-dark">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img src="{{ url_for('static', filename='img/29.jpg') }}" class="card-img-top" alt="Service 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Service 3</h5>
+                        <p class="card-text">Detailed description of Service 3. Highlight key features and benefits.</p>
+                        <a href="{{ url_for('new_construction', service_id=3) }}" class="btn btn-dark">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <h4 class="text-center mb-4">Available Flats</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="static/img/kichen.jpg" class="img-fluid" alt="2RK Flat">
+                <h5>2RK (Residential Kitchen)</h5>
+                <p>Size: 500 sq. ft.</p>
+                <p>Price: ₹35 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/25.jpg" class="img-fluid" alt="4RK Flat">
+                <h5>4RK (Residential Kitchen)</h5>
+                <p>Size: 1200 sq. ft.</p>
+                <p>Price: ₹90 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/26.jpg" class="img-fluid" alt="2BHK Flat">
+                <h5>2BHK (2 Bedroom, Hall, Kitchen)</h5>
+                <p>Size: 900 sq. ft.</p>
+                <p>Price: ₹65 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/27.jpg" class="img-fluid" alt="3BHK Flat">
+                <h5>3BHK (3 Bedroom, Hall, Kitchen)</h5>
+                <p>Size: 1300 sq. ft.</p>
+                <p>Price: ₹95 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/28.jpg" class="img-fluid" alt="1BHK Flat">
+                <h5>1BHK (1 Bedroom, Hall, Kitchen)</h5>
+                <p>Size: 600 sq. ft.</p>
+                <p>Price: ₹40 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/29.jpg" class="img-fluid" alt="Square Footage">
+                <h5>Square Footage Based</h5>
+                <p>Size: 450-1500 sq. ft.</p>
+                <p>Price: ₹30 Lakhs - ₹1.2 Crores</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/kichen2.jpg" class="img-fluid" alt="2RK Flat">
+                <h5>2RK (Residential Kitchen)</h5>
+                <p>Size: 500 sq. ft.</p>
+                <p>Price: ₹35 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/17.jpg" class="img-fluid" alt="4RK Flat">
+                <h5>4RK (Residential Kitchen)</h5>
+                <p>Size: 1200 sq. ft.</p>
+                <p>Price: ₹90 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/31.jpg" class="img-fluid" alt="2BHK Flat">
+                <h5>2BHK (2 Bedroom, Hall, Kitchen)</h5>
+                <p>Size: 900 sq. ft.</p>
+                <p>Price: ₹65 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/18.jpg" class="img-fluid" alt="3BHK Flat">
+                <h5>3BHK (3 Bedroom, Hall, Kitchen)</h5>
+                <p>Size: 1300 sq. ft.</p>
+                <p>Price: ₹95 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/19.jpg" class="img-fluid" alt="1BHK Flat">
+                <h5>1BHK (1 Bedroom, Hall, Kitchen)</h5>
+                <p>Size: 600 sq. ft.</p>
+                <p>Price: ₹40 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/4.jpg" class="img-fluid" alt="Studio Apartment">
+                <h5>Studio Apartment</h5>
+                <p>Size: 450 sq. ft.</p>
+                <p>Price: ₹30 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/7.jpg" class="img-fluid" alt="Duplex">
+                <h5>Duplex</h5>
+                <p>Size: 1600 sq. ft.</p>
+                <p>Price: ₹1.2 Crores</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/15.jpg" class="img-fluid" alt="Penthouse">
+                <h5>Penthouse</h5>
+                <p>Size: 2000 sq. ft.</p>
+                <p>Price: ₹2.5 Crores</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/2.jpg" class="img-fluid" alt="Villa">
+                <h5>Villa</h5>
+                <p>Size: 3000 sq. ft.</p>
+                <p>Price: ₹3.5 Crores</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/6.jpg" class="img-fluid" alt="Loft">
+                <h5>Loft</h5>
+                <p>Size: 1000 sq. ft.</p>
+                <p>Price: ₹80 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/8.jpg" class="img-fluid" alt="Townhouse">
+                <h5>Townhouse</h5>
+                <p>Size: 1800 sq. ft.</p>
+                <p>Price: ₹1.8 Crores</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/9.jpg" class="img-fluid" alt="Bungalow">
+                <h5>Bungalow</h5>
+                <p>Size: 2500 sq. ft.</p>
+                <p>Price: ₹2.8 Crores</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/11.jpg" class="img-fluid" alt="Row House">
+                <h5>Row House</h5>
+                <p>Size: 1500 sq. ft.</p>
+                <p>Price: ₹1.5 Crores</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/1.jpg" class="img-fluid" alt="Square Footage">
+                <h5>Square Footage Based</h5>
+                <p>Size: 450-1500 sq. ft.</p>
+                <p>Price: ₹30 Lakhs - ₹1.2 Crores</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/5.jpg" class="img-fluid" alt="Luxury 3BHK Flat">
+                <h5>Luxury 3BHK Flat</h5>
+                <p>Size: 1800 sq. ft.</p>
+                <p>Price: ₹2.2 Crores</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/12.jpg" class="img-fluid" alt="Premium 4BHK Flat">
+                <h5>Premium 4BHK Flat</h5>
+                <p>Size: 2500 sq. ft.</p>
+                <p>Price: ₹3 Crores</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/22.jpg" class="img-fluid" alt="Modern Studio">
+                <h5>Modern Studio Apartment</h5>
+                <p>Size: 500 sq. ft.</p>
+                <p>Price: ₹40 Lakhs</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/4.jpg" class="img-fluid" alt="Sky Penthouse">
+                <h5>Sky Penthouse</h5>
+                <p>Size: 2200 sq. ft.</p>
+                <p>Price: ₹2.8 Crores</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/15.jpg" class="img-fluid" alt="Eco Villa">
+                <h5>Eco Villa</h5>
+                <p>Size: 3500 sq. ft.</p>
+                <p>Price: ₹4 Crores</p>
+            </div>
+            <div class="col-md-4">
+                <img src="static/img/16.jpg" class="img-fluid" alt="Luxury Penthouse">
+                <h5>Luxury Penthouse</h5>
+                <p>Size: 2400 sq. ft.</p>
+                <p>Price: ₹3 Crores</p>
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Responsive Container */
+    .container {
+        max-width: 800px;
+        margin: auto;
+        padding: 0 15px;
+    }
+
+    /* Form Container Styling */
+    .form-container {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Image Styling */
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    /* Flat Information Styling */
+    .row .col-md-4 {
+        margin-bottom: 20px;
+    }
+    
+    h5 {
+        margin-top: 10px;
+        color: #495057;
+    }
+    
+    p {
+        margin: 0;
+        color: #6c757d;
+    }
+</style>
+    <div class="flat-gallery mt-5">
+        <h4 class="text-center mb-4">Explore Different Flat Types</h4>
+        <div class="row">
+            <!-- 2RK -->
+            <div class="col-md-4 mb-4">
+                <div class="card1">
+                    <img src="static/img/20.jpg" class="card-img-top" alt="2RK">
+                    <div class="card-body">
+                        <h5 class="card-title">2RK</h5>
+                        <p class="card-text">Spacious 2 Room Kitchen (2RK) flat with modern amenities. Price: ₹25 Lakhs</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 4RK -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="static/img/21.jpg" class="card-img-top" alt="4RK">
+                    <div class="card-body">
+                        <h5 class="card-title">4RK</h5>
+                        <p class="card-text">Luxurious 4 Room Kitchen (4RK) flat with premium finishes. Price: ₹60 Lakhs</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 2BHK -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="static/img/22.jpg" class="card-img-top" alt="2BHK">
+                    <div class="card-body">
+                        <h5 class="card-title">2BHK</h5>
+                        <p class="card-text">Cozy 2 Bedroom Hall Kitchen (2BHK) flat in a prime location. Price: ₹45 Lakhs</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 3BHK -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="static/img/23.jpg" class="card-img-top" alt="3BHK">
+                    <div class="card-body">
+                        <h5 class="card-title">3BHK</h5>
+                        <p class="card-text">Elegant 3 Bedroom Hall Kitchen (3BHK) flat with ample space. Price: ₹55 Lakhs</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 1BHK -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="static/img/24.jpg" class="card-img-top" alt="1BHK">
+                    <div class="card-body">
+                        <h5 class="card-title">1BHK</h5>
+                        <p class="card-text">Affordable 1 Bedroom Hall Kitchen (1BHK) flat perfect for singles or couples. Price: ₹20 Lakhs</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Square Foot Area -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="static/img/25.jpg" class="card-img-top" alt="Square Foot Area">
+                    <div class="card-body">
+                        <h5 class="card-title">Spacious Flats</h5>
+                        <p class="card-text">Explore flats with different square foot areas to fit your needs. Price varies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   
+
+<style>
+    .flat-gallery .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .flat-gallery .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .flat-gallery .card-body {
+        padding: 15px;
+    }
+
+    .flat-gallery .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .flat-gallery .card-text {
+        font-size: 14px;
+        color: #666;
+    }
+</style>
+    <style>
+        /* styles.css */
+
+        /* Responsive Container */
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 0 15px;
+        }
+
+        /* Form Container Styling */
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Control Styling */
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+        }
+
+        /* Form Label Styling */
+        .form-label {
+            color: #495057; /* Change the label color */
+            font-weight: 500;
+        }
+
+        /* Responsive Button */
+        .btn-block {
+            width: 100%;
+            display: block;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        /* Button Hover Effect */
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        /* Alert Styling */
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #d9edf7;
+            color: #31708f;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        /* Preformatted Text */
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+{% endblock %}

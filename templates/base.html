@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}House Price Prediction{% endblock %}</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #49909b 0%, #acc013 100%);
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 1.2px;
+        }
+
+        .top-bar {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #121212;
+            color: #ffffff;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            border-radius: 5px;
+            border: 1px solid #4e5d6c;
+            overflow-x: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 10px;
+            display: block;
+            font-size: 18px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+            background-color: #1c1c1c;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #121212;
+            padding: 40px;
+            color: #ffffff;
+            text-align: center;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.5);
+            margin-top: 5px;
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar-brand {
+            color: #343a40 !important;
+        }
+
+        .navbar-brand:hover {
+            color: #0056b3 !important;
+        }
+
+        .search-bar {
+            width: 300px;
+            color: #ffffff;
+            border: 1px solid #4e5d6c;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #e53935;
+            color: #ffffff;
+        }
+
+        input  {
+            width: 100%;
+            margin-bottom: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            outline: none;
+            padding: 14px;
+            font-size: 16px;
+            color: #ffffff;
+            border-radius: 4px;
+            box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2), 0 1px 1px rgba(255, 255, 255, 0.2);
+            transition: box-shadow .5s ease;
+        }
+
+        input:focus {
+            box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4), 0 1px 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .login {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        label, h3 {
+            color: #121212; /* White text for labels */
+            background: rgba(255, 245, 245, 255); /* Transparent red background */
+            padding: 5px 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .login {
+            color: #0000;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                transform: translateX(-100%);
+            }
+
+            .content {
+                margin-left: 0;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .search-bar {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .top-bar {
+                padding: 10px;
+            }
+
+            .sidebar a {
+                text-align: center;
+                float: none;
+            }
+
+            .dropdown-menu {
+                position: static;
+                float: none;
+            }
+
+            .btn-outline-success {
+                width: 100%;
+            }
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            margin-top: 0;
+        }
+
+        .dropdown-toggle::after {
+            margin-left: .5rem;
+        }
+
+        .sidebar.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body>
+    <aside>
+        <div class="sidebar" id="sidebar">
+            <a href="{{ url_for('index') }}">Home</a>
+            {% if 'user_authenticated' in session %}
+                <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
+                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                <a class="nav-link" href="{{ url_for('signup') }}">Signup</a>
+            {% endif %}
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('contact') }}">Contact us</a>
+            <a href="{{ url_for('service') }}">Service</a>
+            <a href="{{ url_for('predict') }}">Predict</a>
+            <a href="{{ url_for('new_purchasing') }}">New Purchasing</a>
+            <a href="{{ url_for('new_construction') }}">New Construction</a>
+            <a href="{{ url_for('ready_construction') }}">Ready Construction</a>
+            <a href="{{ url_for('settings') }}">Settings</a>
+            {% if 'user_authenticated' in session %}
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
+    </aside>
+    <div class="content">
+        <div class="top-bar d-flex align-items-center justify-content-between">
+            <div>
+                <h1 class="navbar-brand">House Price Prediction</h1>
+            </div>
+            <div class="d-flex align-items-center">
+                <form class="form-inline mr-3" action="{{ url_for('search') }}" method="GET">
+                    <input class="form-control mr-sm-2 my-2 search-bar" type="search" placeholder="Search" aria-label="Search" name="query">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+
+                <div class="dropdown">
+                    <button class="btn p-0 rounded-circle dropdown-toggle" type="button" id="profile-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="path/to/profile-image.jpg" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px;">
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="profile-menu">
+                        <a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a>
+                        <a class="dropdown-item" href="{{ url_for('settings') }}">Settings</a>
+                        <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+                <button style="font-size: 40px;" id="sidebar-toggle" class="btn btn-light">☰</button>
+
+            </div>
+        </div>
+        {% block content %}
+        <!-- Page content will be inserted here -->
+        {% endblock %}
+    </div>
+    <footer class="footer bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5>House price Analysis Project</h5>
+                    <p>predict your house price  with ease and efficiency.</p>
+                    <div class="contact-info">
+                        <p><strong>Contact:</strong></p>
+                        <p>Mobile: 9422133175</p>
+                        <p>Email: <a href="mailto:rohitam35@gmail.com" class="text-white">rohitam35@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex flex-column align-items-md-end">
+                    <form class="form-inline mb-4 mb-md-0">
+                        <div class="form-group mb-2 mr-2">
+                            <label for="phone" class="sr-only">Phone Number</label>
+                            <input type="text" class="form-control" id="phone" placeholder="Enter Your Phone Number">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Request Code</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col text-center">
+                    <p>&copy; 2024 Developer - Rohit Mahajan. Terms · Privacy Policy</p>
+                    <div>
+                        <!-- Social Icons -->
+                        <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('show');
+        });
+    </script>
+</body>
+
+</html>
