@@ -49,20 +49,41 @@ The application will be accessible at http://127.0.0.1:5000/ by default.
 
 
 Pages and Functionality
+dashboard :![image](https://github.com/user-attachments/assets/970b4696-6b96-4969-b7c9-7111a7f679a2)
+
+ ![Uploading image.png…]()
+
+![image](https://github.com/user-attachments/assets/aa5769c4-840c-4dc2-a0dc-8b8dbb772042)
+
+
 1. Login Page
-URL: /login
+URL: /login    ![image](https://github.com/user-attachments/assets/44c2d786-87a0-424f-8ece-f0b9c3a717e2)
+
 Description: Allows users to log in to their account. The page includes fields for entering username and password. Upon successful login, users are redirected to the home page or their profile.
 2. Signup Page
-URL: /signup
+URL: /signup    ![image](https://github.com/user-attachments/assets/4b4b1f66-5f5f-41f0-b018-50e06f59bb0d)
+
 Description: Allows new users to create an account by providing a username, email, and password. After signup, users are redirected to the login page.
 3. Logout
 URL: /logout
 Description: Logs the user out of the application and redirects them to the home page. This action clears the session and any user-specific data.
 4. Prediction Page
 URL: /predict
+   ![image](https://github.com/user-attachments/assets/39f7fcae-29ea-4587-954e-fbcde9da4112)
+
+
+
+
+   ![image](https://github.com/user-attachments/assets/54a0ba69-3ec3-4ae4-9c80-01c8c02214f9)
+
+
 Description: Users can enter details about a house (e.g., number of bedrooms, bathrooms, size, location) to receive a price prediction. The page uses a machine learning model to generate and display the predicted house price.
-5. Home Page
-URL: /
+6. Home Page
+URL: /  ![image](https://github.com/user-attachments/assets/0ecd418b-3cbc-462e-97f6-62fdd4435329)
+
+![image](https://github.com/user-attachments/assets/7c8070ac-4590-4c81-80ee-2ceae07267ce)
+
+
 Description: The main page of the application that may include navigation links to other pages, information about the project, and an overview of features.
 Authentication
 The application uses Flask sessions for authentication. Users need to log in to access certain pages. The authentication mechanism includes:
