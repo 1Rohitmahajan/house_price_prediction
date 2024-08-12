@@ -9,3 +9,8 @@ pip intall flask
 pip install Flask scikit-learn pandas numpy
 
 from sklearn.datasets import load_boston
+
+pip install email_validator
+
+python -m pip install flask-wtf
+ pip install flask_sqlalchemy

@@ -255,7 +255,7 @@
 
                 <div class="dropdown">
                     <button class="btn p-0 rounded-circle dropdown-toggle" type="button" id="profile-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="static/img/rohitphoto.jpg" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px;">
+                        <img src="path/to/profile-image.jpg" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px;">
                     </button>
                     <div class="dropdown-menu" aria-labelledby="profile-menu">
                         <a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a>
@@ -266,12 +266,20 @@
                 <button style="font-size: 40px;" id="sidebar-toggle" class="btn btn-light">☰</button>
 
             </div>
+            
         </div>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="flash {{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
         {% block content %}
-        <!-- Page content will be inserted here -->
         {% endblock %}
-    </div>
-    <footer class="footer bg-dark text-white py-4">
+    <footer class="footer bg-dark text-white py-4 mt-5">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 mb-4 mb-md-0">
@@ -306,6 +314,7 @@
             </div>
         </div>
     </footer>
+</div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

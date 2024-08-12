@@ -3,19 +3,42 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card">
+        <div class="card mb-5 mt-5">
             <div class="card-body bg-light">
-                <h3 style="color:black" class="card-title text-center bg-light ">Signup</h3>
+                <h3 style="color:black" class="card-title text-center bg-light">Signup</h3>
                 <form method="POST" action="{{ url_for('signup') }}">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.name.label }}<br>
+                        {{ form.name(size=32) }}<br>
+                        {% for error in form.name.errors %}
+                            <span>{{ error }}</span><br>
+                        {% endfor %}
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                    <div class="form-group">
+                        {{ form.email.label }}<br>
+                        {{ form.email(size=32) }}<br>
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span><br>
+                        {% endfor %}
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Signup</button>
+                    <div class="form-group">
+                        {{ form.password.label }}<br>
+                        {{ form.password(size=32) }}<br>
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span><br>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.confirm_password.label }}<br>
+                        {{ form.confirm_password(size=32) }}<br>
+                        {% for error in form.confirm_password.errors %}
+                            <span>{{ error }}</span><br>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.submit() }}
+                    </div>
                 </form>
             </div>
         </div>

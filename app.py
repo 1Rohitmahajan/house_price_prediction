@@ -1,57 +1,111 @@
+# import crypt
 import pickle
+import sqlite3
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 import numpy as np
 import tempfile
 import os
+from flask_wtf import FlaskForm
+from wtforms import StringField,PasswordField,SubmitField,EmailField
+from wtforms.validators import DataRequired,Email,ValidationError
+from werkzeug.security import generate_password_hash, check_password_hash
+
+
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'your_default_secret_key')  # Use environment variable for secret key
+
+class SignUpForm(FlaskForm):
+    name = StringField("Name", validators=[DataRequired()])
+    email = EmailField("Email", validators=[DataRequired(), Email()])
+    password = PasswordField("Password", validators=[DataRequired()])    
+    confirm_password = PasswordField("Confirm Password", validators=[DataRequired()])    
+    submit = SubmitField("Signup")
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+def get_db_connection():
+    """Establish and return a database connection"""
+    conn = sqlite3.connect(os.path.join('data', 'users.db'))
+    conn.row_factory = sqlite3.Row
+    return conn
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        # Implement your user creation logic here
-        flash('Signup successful! Please log in.', 'success')
-        return redirect(url_for('login'))
-    return render_template('auth/signup.html')
+    form = SignUpForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        email = form.email.data
+        password = form.password.data
+        confirm_password = form.confirm_password.data
+
+        if password != confirm_password:
+            flash('Passwords do not match. Please try again.', 'danger')
+            return render_template('auth/signup.html', form=form)
+
+        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+
+        try:
+            with get_db_connection() as conn:
+                c = conn.cursor()
+                c.execute("INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+                          (name, email, hashed_password))
+                conn.commit()
+            flash('Signup successful! Please log in.', 'success')
+            return redirect(url_for('login'))
+        except sqlite3.IntegrityError:
+            flash('Email already exists. Please choose a different email.', 'danger')
+        except Exception as e:
+            flash(f'An error occurred: {e}', 'danger')
+
+    return render_template('auth/signup.html', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
-        # Implement your authentication logic here
-        session['username'] = username
-        session['user_authenticated'] = True
-        return redirect(url_for('profile'))
+
+        try:
+            with get_db_connection() as conn:
+                c = conn.cursor()
+                c.execute("SELECT password FROM users WHERE email = ?", (email,))
+                result = c.fetchone()
+                
+                if result and check_password_hash(result[0], password):
+                    session['email'] = email
+                    session['user_authenticated'] = True
+                    return redirect(url_for('profile'))
+                else:
+                    flash('Invalid email or password. Please try again.', 'danger')
+        except Exception as e:
+            flash(f'An error occurred: {e}', 'danger')
+
     return render_template('auth/login.html')
 
 @app.route('/logout')
 def logout():
-    session.pop('username', None)
+    session.pop('email', None)
     session.pop('user_authenticated', None)
     return redirect(url_for('index'))
 
 @app.route('/profile')
 def profile():
-    if 'username' in session:
-        username = session['username']
-        return render_template('user_info/profile.html', username=username)
+    if 'email' in session:
+        email = session['email']
+        return render_template('user_info/profile.html', email=email)
     else:
         return redirect(url_for('login'))
 @app.route('/new_purchasing')
 def new_purchasing():
-    return render_template('services/new_purchasing.html')  # Use a specific template if available
+    return render_template('services/new_purchasing.html')  # plate if available
 
 @app.route('/settings')
 def settings():
-    return render_template('user_info/settings.html')  # Use a specific template if available
+    return render_template('user_info/settings.html')  
 
 
 @app.route('/about')
@@ -61,30 +115,29 @@ def about():
 @app.route('/search', methods=['GET'])
 def search():
     query = request.args.get('query', '')
-    # Implement your search logic here
     return render_template('search_results.html', query=query)
 
 @app.route('/service')
 def service():
-    return render_template('service.html')  # Use a specific template if available
+    return render_template('service.html')  
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')  # Use a specific template if available
+    return render_template('contact.html') 
 
 
 
 @app.route('/ready_construction')
 def ready_construction():
-    return render_template('services/ready_construction.html')  # Use a specific template if available
+    return render_template('services/ready_construction.html') 
 
 @app.route('/new_construction')
 def new_construction():
-    return render_template('services/new_construction.html')  # Use a specific template if available
+    return render_template('services/new_construction.html')  
 @app.route('/property_listings')
 def property_listings():
     return render_template('services/property_listings.html')
-# Load the trained model and label encoders
+# Load the trained model  encoders
 model_path = 'model/model.pkl'
 encoders_path = 'model/label_encoders.pkl'
 
@@ -164,7 +217,6 @@ def predict():
             prediction_text = f'Error: {str(e)}'
 
     elif request.method == 'GET':
-        # Handle GET request (e.g., initial page load)
         prediction_text = 'Please submit the form to get predictions.'
 
     return render_template('index.html', prediction_text=prediction_text, temp_file_content=temp_file_content)
